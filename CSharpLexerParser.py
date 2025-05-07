@@ -10,7 +10,7 @@ else:
 
 def serializedATN():
     return [
-        4,1,129,561,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,
+        4,1,130,561,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,
         7,6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,
         13,2,14,7,14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,
         20,7,20,2,21,7,21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,
@@ -249,7 +249,7 @@ class CSharpLexerParser ( Parser ):
                      "<INVALID>", "<INVALID>", "'+'", "'-'", "'*'", "'/'", 
                      "'%'", "'='", "'=='", "'!='", "'>'", "'<'", "'>='", 
                      "'<='", "'&&'", "'||'", "'!'", "'('", "')'", "'{'", 
-                     "'}'", "';'", "','" ]
+                     "'}'", "';'", "','", "'.'" ]
 
     symbolicNames = [ "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
                       "<INVALID>", "<INVALID>", "<INVALID>", "<INVALID>", 
@@ -272,10 +272,11 @@ class CSharpLexerParser ( Parser ):
                       "USING", "VIRTUAL", "VOID", "VOLATILE", "WHILE", "IDENTIFIER", 
                       "INTEGER_LITERAL", "REAL_LITERAL", "CHARACTER_LITERAL", 
                       "STRING_LITERAL", "NULL_LITERAL", "BOOL_LITERAL", 
-                      "ADD", "SUB", "MUL", "DIV", "MOD", "ASSIG", "EQUALS", 
+                      "ADD", "SUB", "MUL", "DIV", "MOD", "ASSING", "EQUALS", 
                       "NOTEQUALS", "BIGGERTHAN", "LESSTHAN", "BOET", "LOET", 
                       "AND", "OR", "NOT", "LPAREN", "RPAREN", "LBRACE", 
-                      "RBRACE", "SEMI", "COMMA", "WS", "LINE_COMMENT", "BLOCK_COMMENT" ]
+                      "RBRACE", "SEMI", "COMMA", "PUNTO", "WS", "LINE_COMMENT", 
+                      "BLOCK_COMMENT" ]
 
     RULE_variable_declaration = 0
     RULE_localVariableDeclaration = 1
@@ -467,7 +468,7 @@ class CSharpLexerParser ( Parser ):
     MUL=108
     DIV=109
     MOD=110
-    ASSIG=111
+    ASSING=111
     EQUALS=112
     NOTEQUALS=113
     BIGGERTHAN=114
@@ -483,9 +484,10 @@ class CSharpLexerParser ( Parser ):
     RBRACE=124
     SEMI=125
     COMMA=126
-    WS=127
-    LINE_COMMENT=128
-    BLOCK_COMMENT=129
+    PUNTO=127
+    WS=128
+    LINE_COMMENT=129
+    BLOCK_COMMENT=130
 
     def __init__(self, input:TokenStream, output:TextIO = sys.stdout):
         super().__init__(input, output)
@@ -513,8 +515,8 @@ class CSharpLexerParser ( Parser ):
         def SEMI(self):
             return self.getToken(CSharpLexerParser.SEMI, 0)
 
-        def ASSIG(self):
-            return self.getToken(CSharpLexerParser.ASSIG, 0)
+        def ASSING(self):
+            return self.getToken(CSharpLexerParser.ASSING, 0)
 
         def expression(self):
             return self.getTypedRuleContext(CSharpLexerParser.ExpressionContext,0)
@@ -550,7 +552,7 @@ class CSharpLexerParser ( Parser ):
             _la = self._input.LA(1)
             if _la==111:
                 self.state = 120
-                self.match(CSharpLexerParser.ASSIG)
+                self.match(CSharpLexerParser.ASSING)
                 self.state = 121
                 self.expression()
 
@@ -658,8 +660,8 @@ class CSharpLexerParser ( Parser ):
         def IDENTIFIER(self):
             return self.getToken(CSharpLexerParser.IDENTIFIER, 0)
 
-        def ASSIG(self):
-            return self.getToken(CSharpLexerParser.ASSIG, 0)
+        def ASSING(self):
+            return self.getToken(CSharpLexerParser.ASSING, 0)
 
         def expression(self):
             return self.getTypedRuleContext(CSharpLexerParser.ExpressionContext,0)
@@ -695,7 +697,7 @@ class CSharpLexerParser ( Parser ):
             self.state = 139
             self.match(CSharpLexerParser.IDENTIFIER)
             self.state = 140
-            self.match(CSharpLexerParser.ASSIG)
+            self.match(CSharpLexerParser.ASSING)
             self.state = 141
             self.expression()
             self.state = 142
@@ -1733,8 +1735,8 @@ class CSharpLexerParser ( Parser ):
             super().__init__(parent, invokingState)
             self.parser = parser
 
-        def ASSIG(self):
-            return self.getToken(CSharpLexerParser.ASSIG, 0)
+        def ASSING(self):
+            return self.getToken(CSharpLexerParser.ASSING, 0)
 
         def getRuleIndex(self):
             return CSharpLexerParser.RULE_assignment_operator
@@ -1909,8 +1911,8 @@ class CSharpLexerParser ( Parser ):
         def IDENTIFIER(self):
             return self.getToken(CSharpLexerParser.IDENTIFIER, 0)
 
-        def ASSIG(self):
-            return self.getToken(CSharpLexerParser.ASSIG, 0)
+        def ASSING(self):
+            return self.getToken(CSharpLexerParser.ASSING, 0)
 
         def REAL_LITERAL(self):
             return self.getToken(CSharpLexerParser.REAL_LITERAL, 0)
@@ -1943,7 +1945,7 @@ class CSharpLexerParser ( Parser ):
             self.state = 258
             self.match(CSharpLexerParser.IDENTIFIER)
             self.state = 259
-            self.match(CSharpLexerParser.ASSIG)
+            self.match(CSharpLexerParser.ASSING)
             self.state = 260
             self.match(CSharpLexerParser.REAL_LITERAL)
             self.state = 261

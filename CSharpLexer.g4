@@ -220,7 +220,7 @@ SUB: '-';
 MUL: '*';
 DIV: '/';
 MOD: '%';
-ASSIG: '=';
+ASSING: '=';
 EQUALS: '==';
 NOTEQUALS: '!=';
 BIGGERTHAN: '>';
@@ -238,6 +238,7 @@ LBRACE: '{';
 RBRACE: '}';
 SEMI: ';';
 COMMA: ',';
+PUNTO: '.';
 
 // Skip spaces, tabs, and newlines
 WS : [ \t\r\n]+ -> skip;
