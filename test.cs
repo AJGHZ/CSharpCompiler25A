@@ -8,6 +8,8 @@ class test
         suma(5, 6);
         result(suma);
 
+        int a = "hello world"
+
         if (true)
         {
             Console.WriteLine("This is true");

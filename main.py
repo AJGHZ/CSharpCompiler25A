@@ -21,9 +21,10 @@ print('#####################################################')
 print()
 print('Analizador sintactico de C#')
 print()
-
+print()
 print('Este programa analiza un archivo de texto con código C# y genera una lista de tokens.')
 print('Además, verifica la sintaxis del código y muestra errores si los encuentra.')
+print()
 class SyntaxErrorListener(ErrorListener):
     def __init__(self):
         super(SyntaxErrorListener, self).__init__()
@@ -58,7 +59,7 @@ def main():
     parser.addErrorListener(error_listener)
 
     # Activar BailErrorStrategy para depuración rápida
-    #parser._errHandler = BailErrorStrategy()
+    parser._errHandler = BailErrorStrategy()
 
     # Iniciar análisis sintáctico con la regla de inicio
     print("\nIniciando análisis sintáctico...")

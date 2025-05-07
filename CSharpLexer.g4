@@ -75,7 +75,6 @@ expressionStatement: expression ';';
 expressionList: expression(',' expression)*;
 
 //Analisis sintactico para la definición de métodos y clases
-
 compilationUnit: (classDeclaration | methodDeclaration)*EOF;
 
 classDeclaration: attributes? modifiers? 'class' IDENTIFIER typeParameters? classBase? classBody;

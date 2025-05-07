@@ -533,6 +533,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitVariable_declaration" ):
                 listener.exitVariable_declaration(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitVariable_declaration" ):
+                return visitor.visitVariable_declaration(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -605,6 +611,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitLocalVariableDeclaration" ):
                 listener.exitLocalVariableDeclaration(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLocalVariableDeclaration" ):
+                return visitor.visitLocalVariableDeclaration(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -680,6 +692,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitConstant_declaration" ):
                 listener.exitConstant_declaration(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitConstant_declaration" ):
+                return visitor.visitConstant_declaration(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -768,6 +786,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitType_identifier" ):
                 listener.exitType_identifier(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitType_identifier" ):
+                return visitor.visitType_identifier(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -855,6 +879,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitExpression" ):
                 listener.exitExpression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpression" ):
+                return visitor.visitExpression(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -978,6 +1008,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitPrimary_expression" ):
                 listener.exitPrimary_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitPrimary_expression" ):
+                return visitor.visitPrimary_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1050,6 +1086,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitUnary_expression" ):
                 listener.exitUnary_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitUnary_expression" ):
+                return visitor.visitUnary_expression(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1145,6 +1187,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitMultiplicative_expression" ):
                 listener.exitMultiplicative_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMultiplicative_expression" ):
+                return visitor.visitMultiplicative_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1220,6 +1268,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitAdditive_expression" ):
                 listener.exitAdditive_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAdditive_expression" ):
+                return visitor.visitAdditive_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1282,6 +1336,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitShift_expression" ):
                 listener.exitShift_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitShift_expression" ):
+                return visitor.visitShift_expression(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1370,6 +1430,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitRelational_expression" ):
                 listener.exitRelational_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitRelational_expression" ):
+                return visitor.visitRelational_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1445,6 +1511,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitEquality_expression" ):
                 listener.exitEquality_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitEquality_expression" ):
+                return visitor.visitEquality_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1514,6 +1586,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitLogical_and_expression" ):
                 listener.exitLogical_and_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLogical_and_expression" ):
+                return visitor.visitLogical_and_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1578,6 +1656,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitLogical_or_expression" ):
                 listener.exitLogical_or_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLogical_or_expression" ):
+                return visitor.visitLogical_or_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1639,6 +1723,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitConditional_expression" ):
                 listener.exitConditional_expression(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitConditional_expression" ):
+                return visitor.visitConditional_expression(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1704,6 +1794,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitAssignment_expression" ):
                 listener.exitAssignment_expression(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignment_expression" ):
+                return visitor.visitAssignment_expression(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1748,6 +1844,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAssignment_operator" ):
                 listener.exitAssignment_operator(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAssignment_operator" ):
+                return visitor.visitAssignment_operator(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1809,6 +1911,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitLiteral" ):
                 listener.exitLiteral(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitLiteral" ):
+                return visitor.visitLiteral(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1877,6 +1985,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitError" ):
                 listener.exitError(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitError" ):
+                return visitor.visitError(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -1930,6 +2044,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFloat_declaration" ):
                 listener.exitFloat_declaration(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFloat_declaration" ):
+                return visitor.visitFloat_declaration(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -1993,6 +2113,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitProg" ):
                 listener.exitProg(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitProg" ):
+                return visitor.visitProg(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2078,6 +2204,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitControlStructure" ):
                 listener.exitControlStructure(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitControlStructure" ):
+                return visitor.visitControlStructure(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2173,6 +2305,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitIfStatement" ):
                 listener.exitIfStatement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitIfStatement" ):
+                return visitor.visitIfStatement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2256,6 +2394,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitSwitchStatement" ):
                 listener.exitSwitchStatement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSwitchStatement" ):
+                return visitor.visitSwitchStatement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2330,6 +2474,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitSwitchSection" ):
                 listener.exitSwitchSection(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitSwitchSection" ):
+                return visitor.visitSwitchSection(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2414,6 +2564,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitCaseLabel" ):
                 listener.exitCaseLabel(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCaseLabel" ):
+                return visitor.visitCaseLabel(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2488,6 +2644,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitWhileStatement" ):
                 listener.exitWhileStatement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitWhileStatement" ):
+                return visitor.visitWhileStatement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2556,6 +2718,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitDoWhileStatement" ):
                 listener.exitDoWhileStatement(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitDoWhileStatement" ):
+                return visitor.visitDoWhileStatement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2638,6 +2806,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitForStatement" ):
                 listener.exitForStatement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitForStatement" ):
+                return visitor.visitForStatement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2719,6 +2893,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitForInitializer" ):
                 listener.exitForInitializer(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitForInitializer" ):
+                return visitor.visitForInitializer(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2773,6 +2953,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitForIterator" ):
                 listener.exitForIterator(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitForIterator" ):
+                return visitor.visitForIterator(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2835,6 +3021,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitForeachStatement" ):
                 listener.exitForeachStatement(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitForeachStatement" ):
+                return visitor.visitForeachStatement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -2899,6 +3091,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitBlock" ):
                 listener.exitBlock(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBlock" ):
+                return visitor.visitBlock(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -2961,6 +3159,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitStatement" ):
                 listener.exitStatement(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitStatement" ):
+                return visitor.visitStatement(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3025,6 +3229,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitExpressionStatement" ):
                 listener.exitExpressionStatement(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpressionStatement" ):
+                return visitor.visitExpressionStatement(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3077,6 +3287,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitExpressionList" ):
                 listener.exitExpressionList(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitExpressionList" ):
+                return visitor.visitExpressionList(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3145,6 +3361,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitCompilationUnit" ):
                 listener.exitCompilationUnit(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitCompilationUnit" ):
+                return visitor.visitCompilationUnit(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3232,6 +3454,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitClassDeclaration" ):
                 listener.exitClassDeclaration(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClassDeclaration" ):
+                return visitor.visitClassDeclaration(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3321,6 +3549,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitClassBase" ):
                 listener.exitClassBase(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClassBase" ):
+                return visitor.visitClassBase(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3387,6 +3621,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitClassBody" ):
                 listener.exitClassBody(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClassBody" ):
+                return visitor.visitClassBody(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3441,6 +3681,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitClassMemberDeclaration" ):
                 listener.exitClassMemberDeclaration(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitClassMemberDeclaration" ):
+                return visitor.visitClassMemberDeclaration(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3512,6 +3758,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitMethodDeclaration" ):
                 listener.exitMethodDeclaration(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMethodDeclaration" ):
+                return visitor.visitMethodDeclaration(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3599,6 +3851,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitReturnType" ):
                 listener.exitReturnType(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitReturnType" ):
+                return visitor.visitReturnType(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3660,6 +3918,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFormalParameterList" ):
                 listener.exitFormalParameterList(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFormalParameterList" ):
+                return visitor.visitFormalParameterList(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3736,6 +4000,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitFixedParameters" ):
                 listener.exitFixedParameters(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFixedParameters" ):
+                return visitor.visitFixedParameters(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3801,6 +4071,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitFixedParameter" ):
                 listener.exitFixedParameter(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitFixedParameter" ):
+                return visitor.visitFixedParameter(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -3871,6 +4147,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitParameterModifier" ):
                 listener.exitParameterModifier(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParameterModifier" ):
+                return visitor.visitParameterModifier(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3929,6 +4211,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitParameterArray" ):
                 listener.exitParameterArray(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitParameterArray" ):
+                return visitor.visitParameterArray(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -3986,6 +4274,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitMethodBody" ):
                 listener.exitMethodBody(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitMethodBody" ):
+                return visitor.visitMethodBody(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -4059,6 +4353,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitType" ):
                 listener.exitType(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitType" ):
+                return visitor.visitType(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -4142,6 +4442,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitAttributes" ):
                 listener.exitAttributes(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAttributes" ):
+                return visitor.visitAttributes(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4194,6 +4500,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitAttributeSection" ):
                 listener.exitAttributeSection(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAttributeSection" ):
+                return visitor.visitAttributeSection(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -4250,6 +4562,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitAttributeList" ):
                 listener.exitAttributeList(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAttributeList" ):
+                return visitor.visitAttributeList(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4304,6 +4622,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitAttribute" ):
                 listener.exitAttribute(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitAttribute" ):
+                return visitor.visitAttribute(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4348,6 +4672,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitModifiers" ):
                 listener.exitModifiers(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitModifiers" ):
+                return visitor.visitModifiers(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
@@ -4437,6 +4767,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitModifier" ):
                 listener.exitModifier(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitModifier" ):
+                return visitor.visitModifier(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4499,6 +4835,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitTypeParameters" ):
                 listener.exitTypeParameters(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitTypeParameters" ):
+                return visitor.visitTypeParameters(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4557,6 +4899,12 @@ class CSharpLexerParser ( Parser ):
             if hasattr( listener, "exitNull_literal" ):
                 listener.exitNull_literal(self)
 
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitNull_literal" ):
+                return visitor.visitNull_literal(self)
+            else:
+                return visitor.visitChildren(self)
+
 
 
 
@@ -4597,6 +4945,12 @@ class CSharpLexerParser ( Parser ):
         def exitRule(self, listener:ParseTreeListener):
             if hasattr( listener, "exitBoolean_literal" ):
                 listener.exitBoolean_literal(self)
+
+        def accept(self, visitor:ParseTreeVisitor):
+            if hasattr( visitor, "visitBoolean_literal" ):
+                return visitor.visitBoolean_literal(self)
+            else:
+                return visitor.visitChildren(self)
 
 
 
