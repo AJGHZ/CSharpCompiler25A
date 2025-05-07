@@ -5,7 +5,10 @@ from CSharpLexerParser import CSharpLexerParser
 from antlr4.Token import CommonToken
 from antlr4.error.ErrorListener import ErrorListener
 from antlr4.error.ErrorStrategy import BailErrorStrategy
+from CSharpLexerVisitor import CSharpLexerVisitor
 
+from ast_builder import ASTBuilder
+from semantic_analyzer import SemanticAnalyzer
 
 print('#####################################################')
 print('CENTRO UNIVERSITARIO DE TONALÁ')
@@ -33,10 +36,50 @@ class SyntaxErrorListener(ErrorListener):
     def syntaxError(self, recognizer, offendingSymbol, line, column, msg, e):
         self.errors.append(f'Error sintáctico: {msg}, en línea: {line}, columna: {column}')
 
+def imprimir_tokens(token_stream):
+    print("\nTokens generados:")
+    token_stream.fill()
+    for token in token_stream.tokens:
+        if token.type != Token.EOF:
+            print(f"Token: {token.text}, Tipo: {token.type}")
+
+def imprimir_errores_sintacticos(error_listener):
+    if error_listener.errors:
+        for error in error_listener.errors:
+            print(error)
+        return True
+    return False
+
+def imprimir_errores_semanticos(semantic_errors):
+    if semantic_errors:
+        print("\nErrores semánticos detectados:")
+        for err in semantic_errors:
+            print(err)
+    else:
+        print("Análisis semántico exitoso. No se encontraron errores.")
+
+def imprimir_tabla_simbolos(symbol_table):
+    print("\nTabla de símbolos:")
+    for name, info in symbol_table.items():
+        print(f"  {name} -> tipo: {info['type']}, línea: {info['line']}, columna: {info['column']}")
+
+def imprimir_nodos_ast(ast, nivel=0):
+    indent = "  " * nivel
+    if hasattr(ast, 'type'):
+        print(f"{indent}{ast.__class__.__name__} (tipo: {ast.type})")
+    else:
+        print(f"{indent}{ast.__class__.__name__}")
+    for attr in vars(ast).values():
+        if isinstance(attr, list):
+            for item in attr:
+                if hasattr(item, '__class__') and not isinstance(item, str):
+                    imprimir_nodos_ast(item, nivel + 1)
+        elif hasattr(attr, '__class__') and not isinstance(attr, str):
+            imprimir_nodos_ast(attr, nivel + 1)
+
 def main():
     # Leer el archivo de prueba
     input_stream = FileStream("test.cs", encoding="utf-8")
-
     # Crear lexer y stream de tokens
     lexer = CSharpLexer(input_stream)
     stream = CommonTokenStream(lexer)
@@ -72,6 +115,24 @@ def main():
             print("El análisis sintáctico fue exitoso. Todas las declaraciones son válidas.")
     except Exception as e:
         print(f"Se produjo un error: {str(e)}")
+
+    tree = parser.prog()  # Cambia 'prog' por la regla de inicio de tu gramática
+
+    builder = ASTBuilder()
+    ast = builder.visit(tree)
+    print("\nÁrbol de sintaxis abstracta (AST):")
+    print(ast)  # Imprime el AST generado
+
+    # Crear un analizador semántico y analizar el AST
+    analyzer = SemanticAnalyzer()
+    errors = analyzer.analyze(ast)
+
+    if errors:
+        print("\nErrores semánticos encontrados:")
+        for e in errors:
+            print(' -', e)
+    else:
+        print("\nNo se encontraron errores semánticos.")
 
 if __name__ == '__main__':
     main()
