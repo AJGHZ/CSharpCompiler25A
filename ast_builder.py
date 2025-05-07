@@ -4,7 +4,7 @@ from ast_nodes import *
 
 class ASTBuilder(CSharpLexerVisitor):
     def visitProg(self, ctx):
-        statements = [self.visit(child) for child in ctx.statement()]
+        statements = [self.visit(child) for child in ctx.children if self.visit(child) is not None]
         return ProgramNode(statements, ctx.start.line, ctx.start.column)
 
     def visitVarDecl(self, ctx):
