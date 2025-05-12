@@ -27,7 +27,7 @@ error: .{reportError(this);};
 
 float_declaration: 'float' IDENTIFIER '=' REAL_LITERAL';';
 
-prog:(variable_declaration | constant_declaration)* EOF;
+prog:(variable_declaration | constant_declaration | classDeclaration)* EOF;
 
 //ESTRUCTURAS DE CONTROL
 controlStructure
