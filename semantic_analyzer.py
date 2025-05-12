@@ -1,5 +1,6 @@
 # semantic_analyzer.py
 from ast_nodes import *
+from ast_builder import *
 
 class SemanticAnalyzer:
     def __init__(self):
@@ -109,3 +110,67 @@ class SemanticAnalyzer:
             )
             return None
         return left_type
+
+class SymbolTable:
+    def __init__(self, parent=None):
+        self.symbols = {}
+        self.parent = parent
+
+    def define(self, name, symbol):
+        if name in self.symbols:
+            raise Exception(f"Símbolo '{name}' ya está definido en este ámbito.")
+        self.symbols[name] = symbol
+
+    def resolve(self, name):
+        if name in self.symbols:
+            return self.symbols[name]
+        elif self.parent:
+            return self.parent.resolve(name)
+        else:
+            return None
+
+    def visit_ClassNode(self, node, scope):
+        if scope.resolve(node.name):
+            self.errors.append(f"Error: Clase '{node.name}' ya está definida (Línea {node.line}, Columna {node.column})")
+        else:
+            scope.define(node.name, node)
+
+        class_scope = SymbolTable(scope)
+        for method in node.methods:
+            self.visit(method, class_scope)
+
+    def visit_MethodNode(self, node, scope):
+        if scope.resolve(node.name):
+            self.errors.append(f"Error: Método '{node.name}' ya está definido (Línea {node.line}, Columna {node.column})")
+        else:
+            scope.define(node.name, node)
+
+        method_scope = SymbolTable(scope)
+        for param in node.parameters:
+            self.visit(param, method_scope)
+        self.visit(node.body, method_scope)
+
+    def visit_ParameterNode(self, node, scope):
+        if scope.resolve(node.name):
+            self.errors.append(f"Error: Parámetro '{node.name}' duplicado (Línea {node.line}, Columna {node.column})")
+        else:
+            scope.define(node.name, node)
+
+    def visit_BlockNode(self, node, scope):
+        block_scope = SymbolTable(scope)
+        for stmt in node.statements:
+            if isinstance(stmt, VarDeclarationNode):
+                if block_scope.resolve(stmt.name):
+                    self.errors.append(f"Error: Variable '{stmt.name}' ya declarada en este ámbito (Línea {stmt.line}, Columna {stmt.column})")
+                else:
+                    block_scope.define(stmt.name, stmt)
+            self.visit(stmt, block_scope)
+
+    def visit_TypeNode(self, node, scope):
+        tipos_validos = [
+            "int", "float", "double", "bool", "char", "string",
+            "byte", "sbyte", "short", "ushort", "uint", "ulong", "decimal"
+        ]
+        if node.name not in tipos_validos:
+            self.errors.append(f"Error: Tipo desconocido '{node.name}' (Línea {node.line}, Columna {node.column})")
+        return node.name

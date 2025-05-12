@@ -18,6 +18,74 @@ class ASTBuilder(CSharpLexerVisitor):
         value = self.visit(ctx.expr())
         return AssignmentNode(name, value, ctx.start.line, ctx.start.column)
     
+    # Visitamos la declaración de clases y métodos
+
+    def visitCompilationUnit(self, ctx):
+        classes = []
+        for decl in ctx.classDeclaration():
+            classes.append(self.visit(decl))
+        return ProgramNode(classes, ctx.start.line, ctx.start.column)
+
+    def visitClassDeclaration(self, ctx):
+        name = ctx.IDENTIFIER().getText()
+        methods = []
+        for member in ctx.classBody().classMemberDeclaration():
+            method = self.visit(member)
+            if method:
+                methods.append(method)
+        return ClassNode(name, methods, ctx.start.line, ctx.start.column)
+
+    def visitClassMemberDeclaration(self, ctx):
+        return self.visit(ctx.methodDeclaration())
+
+    def visitMethodDeclaration(self, ctx):
+        name = ctx.IDENTIFIER().getText()
+        return_type = self.visit(ctx.returnType()) if ctx.returnType() else None
+        parameters = []
+        if ctx.formalParameterList():
+            parameters = self.visit(ctx.formalParameterList())
+        body = self.visit(ctx.methodBody())
+        return MethodNode(name, return_type, parameters, body, ctx.start.line, ctx.start.column)
+
+    def visitReturnType(self, ctx):
+        if ctx.getText() == 'void':
+            return TypeNode('void', ctx.start.line, ctx.start.column)
+        return self.visit(ctx.type())
+
+    def visitFormalParameterList(self, ctx):
+        params = []
+        if ctx.fixedParameters():
+            for p in ctx.fixedParameters().fixedParameter():
+                params.append(self.visit(p))
+        if ctx.parameterArray():
+            params.append(self.visit(ctx.parameterArray()))
+        return params
+
+    def visitFixedParameter(self, ctx):
+        type_node = self.visit(ctx.type())
+        name = ctx.IDENTIFIER().getText()
+        return ParameterNode(name, type_node, ctx.start.line, ctx.start.column)
+
+    def visitParameterArray(self, ctx):
+        type_node = self.visit(ctx.type())
+        name = ctx.IDENTIFIER().getText()
+        return ParameterNode(name, type_node, ctx.start.line, ctx.start.column)
+
+    def visitType(self, ctx):
+        return TypeNode(ctx.getText(), ctx.start.line, ctx.start.column)
+
+    def visitMethodBody(self, ctx):
+        if ctx.block():
+            return self.visit(ctx.block())
+        return BlockNode([], ctx.start.line, ctx.start.column)
+
+    def visitBlock(self, ctx):
+        statements = []
+        for child in ctx.children:
+            stmt = self.visit(child)
+            if stmt:
+                statements.append(stmt)
+        return BlockNode(statements, ctx.start.line, ctx.start.column)
 
     def visitIfStatement(self, ctx):
         condition = self.visit(ctx.expr())
@@ -81,3 +149,5 @@ class ASTBuilder(CSharpLexerVisitor):
             return self.visit(ctx.assignment())
         else:
             return None  # para extensiones futuras
+        
+    

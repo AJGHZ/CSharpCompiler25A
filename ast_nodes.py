@@ -99,3 +99,36 @@ class IdentifierNode(ASTNode):
         self.type = None
         self.value = None
         self.initialized = False
+
+class ClassNode:
+    def __init__(self, name, members, line, column):
+        self.name = name
+        self.members = members
+        self.line = line
+        self.column = column
+
+class MethodNode:
+    def __init__(self, name, return_type, parameters, body, line, column):
+        self.name = name
+        self.return_type = return_type
+        self.parameters = parameters
+        self.body = body
+        self.line = line
+        self.column = column
+
+class ParameterNode:
+    def __init__(self, name, param_type, line, column):
+        self.name = name
+        self.param_type = param_type
+        self.line = line
+        self.column = column
+
+class BlockNode(ASTNode):
+    def __init__(self, statements, line, column):
+        super().__init__(line, column)
+        self.statements = statements  # Lista de nodos (sentencias)
+
+class TypeNode:
+    def __init__(self, name):
+        self.name = name
+
