@@ -12,13 +12,34 @@ class TACGenerator:
         self.label_count += 1
         return f"L{self.label_count}"
 
+    
     def generate(self, node):
-        method_name = f'gen_{type(node).__name__}'
-        method = getattr(self, method_name, self.unsupported_node)
-        return method(node)
+        if isinstance(node, Assign):
+            rhs = self.generate(node.value)
+            self.code.append(f"{node.target} = {rhs}")
+        elif isinstance(node, BinaryOp):
+            left = self.generate(node.left)
+            right = self.generate(node.right)
+            temp = self.new_temp()
+            self.code.append(f"{temp} = {left} {node.op} {right}")
+            return temp
+        elif isinstance(node, UnaryOp):
+            operand = self.generate(node.operand)
+            temp = self.new_temp()
+            self.code.append(f"{temp} = {node.op}{operand}")
+            return temp
+        elif isinstance(node, Variable):
+            return node.name
+        elif isinstance(node, Constant):
+            return str(node.value)
+        else:
+            raise Exception("Nodo del AST desconocido: " + str(node))
+
+    def get_code(self):
+        return self.code
 
     def unsupported_node(self, node):
-        raise Exception(f"TAC generation not supported for node type: {type(node).__name__}")
+        raise Exception(f"La generación del TAC no es soportada por el tipo de nodo: {type(node).__name__}")
 
     def gen_ConstantNode(self, node):
         return str(node.value)
@@ -94,3 +115,7 @@ class TACGenerator:
         self.temp_count = 0
         self.label_count = 0
         self.code = []
+
+    # Ciclos de generación de código
+
+    
