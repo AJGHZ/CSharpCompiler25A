@@ -12,9 +12,12 @@ class SemanticAnalyzer:
         return self.errors
 
     def visit(self, node):
-        method_name = 'visit_' + node.__class__.__name__
-        visitor = getattr(self, method_name, self.generic_visit)
-        return visitor(node)
+        method_name = f'visit_{type(node).__name__}'
+        method = getattr(self, method_name, self.unsupported)
+        return method(node)
+
+    def unsupported(self, node):
+        raise Exception(f"No hay verificación semantica para el tipo de nodo: {type(node).__name__}")
 
     def generic_visit(self, node):
         self.errors.append(f"No se implementó visit para {type(node).__name__} en línea {node.line}, columna {node.column}")

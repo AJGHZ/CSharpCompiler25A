@@ -151,3 +151,89 @@ class ASTBuilder(CSharpLexerVisitor):
             return None  # para extensiones futuras
         
     
+    def visitUnary_expression(self, ctx):   
+        if ctx.unary_operator():
+            op = ctx.unary_operator().getText()
+            right = self.visit(ctx.unary_expression())
+            return UnaryOpNode(op, right)
+        else:
+            return self.visit(ctx.primary_expression())
+        
+    def visitPrimary_expression(self, ctx):
+        if ctx.ID():
+            return IdentifierNode(ctx.ID().getText(), ctx.start.line, ctx.start.column)
+        elif ctx.INT():
+            return LiteralNode(int(ctx.INT().getText()), 'int', ctx.start.line, ctx.start.column)
+        elif ctx.BOOL():
+            return LiteralNode(ctx.BOOL().getText() == 'true', 'bool', ctx.start.line, ctx.start.column)
+        elif ctx.STRING():
+            return LiteralNode(ctx.STRING().getText(), 'string', ctx.start.line, ctx.start.column)
+        elif ctx.expr():
+            return self.visit(ctx.expr())
+        else:
+            return None
+    
+    def visitAdditive_expression(self, ctx):
+        node = self.visit(ctx.multiplicative_expression(0))
+        for i in range(1, len(ctx.multiplicative_expression())):
+            op = ctx.getChild(2 * i - 1).getText()
+            right = self.visit(ctx.multiplicative_expression(i))
+            node = BinaryOpNode(op, node, right)
+        return node
+    
+    def visitMultiplicative_expression(self, ctx):
+        node = self.visit(ctx.unary_expression(0))
+        for i in range(1, len(ctx.unary_expression())):
+            op = ctx.getChild(2 * i - 1).getText()
+            right = self.visit(ctx.unary_expression(i))
+            node = BinaryOpNode(op, node, right)
+        return node
+    
+        
+    def visitConditional_expression(self, ctx):
+        if ctx.getChildCount() == 1:
+            return self.visit(ctx.logical_or_expression())
+        else:
+            condition = self.visit(ctx.logical_or_expression())
+            true_expr = self.visit(ctx.expression(0))
+            false_expr = self.visit(ctx.expression(1))
+        return ConditionalExpressionNode(condition, true_expr, false_expr)
+    
+    def visitLogical_or_expression(self, ctx):
+        node = self.visit(ctx.logical_and_expression(0))
+        for i in range(1, len(ctx.logical_and_expression())):
+            op = ctx.getChild(2 * i - 1).getText()
+            right = self.visit(ctx.logical_and_expression(i))
+            node = BinaryOpNode(op, node, right)
+        return node
+    
+    def visitLogical_and_expression(self, ctx):
+        node = self.visit(ctx.equality_expression(0))
+        for i in range(1, len(ctx.equality_expression())):
+            op = ctx.getChild(2 * i - 1).getText()
+            right = self.visit(ctx.equality_expression(i))
+            node = BinaryOpNode(op, node, right)
+        return node
+    
+    def visitEquality_expression(self, ctx):
+        node = self.visit(ctx.relational_expression(0))
+        for i in range(1, len(ctx.relational_expression())):
+            op = ctx.getChild(2 * i - 1).getText()
+            right = self.visit(ctx.relational_expression(i))
+            node = BinaryOpNode(op, node, right)
+        return node
+    
+    def visitRelational_expression(self, ctx):
+        node = self.visit(ctx.additive_expression(0))
+        for i in range(1, len(ctx.additive_expression())):
+            op = ctx.getChild(2 * i - 1).getText()
+            right = self.visit(ctx.additive_expression(i))
+            node = BinaryOpNode(op, node, right)
+        return node
+    
+    def visitAssignment_operator(self, ctx):
+        if ctx.getChildCount() == 1:
+            return ctx.getText()
+        else:
+            op = ctx.getChild(0).getText()
+            return op + '='

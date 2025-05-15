@@ -9,6 +9,8 @@ from CSharpLexerVisitor import CSharpLexerVisitor
 
 from ast_builder import ASTBuilder
 from semantic_analyzer import SemanticAnalyzer
+from ast_nodes import *
+from tac_generator import TACGenerator
 
 print('#####################################################')
 print('CENTRO UNIVERSITARIO DE TONALÁ')
@@ -134,5 +136,14 @@ def main():
     else:
         print("\nNo se encontraron errores semánticos.")
 
+     # Generación de código de tres direcciones (TAC)
+    tac_generator = TACGenerator()
+    tac_generator.generate(ast)
+
+    # Imprimir el TAC generado
+    print("Código de Tres Direcciones (TAC):")
+    print(tac_generator.get_code())
+
+    
 if __name__ == '__main__':
     main()

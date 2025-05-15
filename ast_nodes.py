@@ -132,3 +132,33 @@ class TypeNode:
     def __init__(self, name):
         self.name = name
 
+class BinaryOpNode(ASTNode):
+    def __init__(self, op, left, right):
+        self.op = op
+        self.left = left
+        self.right = right
+
+class UnaryOpNode(ASTNode):
+    def __init__(self, op, operand):
+        self.op = op
+        self.operand = operand
+
+class ConditionalExpressionNode(ASTNode):
+    def __init__(self, condition, true_expr, false_expr):
+        self.condition = condition
+        self.true_expr = true_expr
+        self.false_expr = false_expr
+
+class AssignmentNode(ASTNode):
+    def __init__(self, target, op, value):
+        self.target = target  # VariableNode
+        self.op = op          # '=', '+=', etc.
+        self.value = value
+
+class VariableNode(ASTNode):
+    def __init__(self, name):
+        self.name = name
+
+class ConstantNode(ASTNode):
+    def __init__(self, value):
+        self.value = value
